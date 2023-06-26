@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserDispatch } from './App';
 
 const User = React.memo(function User({ user }) {
-    const dispatch = userContext(UserDispatch);
+    const dispatch = useContext(UserDispatch);
   return (
     <div>
       <b
