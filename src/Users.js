@@ -1,31 +1,19 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
+import useAsync from './useAsync';
+
+// useAsync 에서는 Promise의 결과를 바로 data에 담는다
+// 요청을 한 이후 response에서 data를 추출하여 반환하는 함수
+async function getUsers() {
+    const response = await axios.get(
+        'https://jsonplaceholder.typicode.com/users'
+    );
+    return response.data;
+}
 
 function Users() {
-    const [users, setUsers] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const fetchUsers = async () => {
-        try {
-            //요청이 시작 할 때에는 error와 user를 초기화 한다.
-            setError(null);
-            setUsers(null);
-            //loading 상태 true로 바꾼다.
-            setLoading(true);
-            const response = await axios.get(
-                'https://jsonplaceholder.typicode.com/users'
-            );
-            setUsers(response.data); //response.data에 데이터를 저장한다.
-        } catch (e) {
-            setError(e);
-        }
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        fetchUsers();
-    }, []);
+    const [state, refetch] = useAsync(getUsers, []);
+    const { loading, data: users, error } = state; // state.data를 users 키워드로 조회
 
     if (loading) return <div>로딩중..</div>;
     if (error) return <div>에러가 발생했습니다</div>;
@@ -39,7 +27,7 @@ function Users() {
                     </li>
                 ))}
             </ul>
-            <button onClick={fetchUsers}>다시 불러오기</button>
+            <button onClick={refetch}>다시 불러오기</button>
         </>
     );
 }
