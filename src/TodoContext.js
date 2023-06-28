@@ -9,12 +9,12 @@ const initialTodos = [
     {
         id: 2,
         text: '컴포넌트 스타일링하기',
-        done: true
+        done: false
     },
     {
         id: 3,
         text: 'Context 만들기',
-        done: false
+        done: true
     },
     {
         id: 4,
