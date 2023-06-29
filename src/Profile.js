@@ -1,11 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-// 프로필에서 사용 할 데이터
+// 프로필에서 사용할 데이터
 const profileData = {
   velopert: {
     name: '김민준',
-    description:
-      'Frontend Engineer @ Laftel Inc. 재밌는 것만 골라서 하는 개발자'
+    description: 'Frontend Engineer @ Laftel Inc. 재밌는 것만 골라서 하는 개발자'
   },
   gildong: {
     name: '홍길동',
@@ -13,9 +13,8 @@ const profileData = {
   }
 };
 
-const Profile = ({ match }) => {
-  // 파라미터를 받아올 땐 match 안에 들어있는 params 값을 참조합니다.
-  const { username } = match.params;
+const Profile = () => {
+  const { username } = useParams();
   const profile = profileData[username];
   if (!profile) {
     return <div>존재하지 않는 유저입니다.</div>;
