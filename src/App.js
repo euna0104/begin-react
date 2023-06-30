@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Link, Routes } from 'react-router-dom';
 import About from './About';
 import Home from './Home';
-import Profile from './Profile';
+import Profiles from './Profiles';
 
 const App = () => {
   return (
@@ -18,9 +18,9 @@ const App = () => {
         </ul>
         <hr />
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profiles/:username" element={<Profile />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/profiles/*' element={<Profiles/>} />
         </Routes>
       </div>
     </>

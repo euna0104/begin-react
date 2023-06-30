@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 
 // 프로필에서 사용할 데이터
 const profileData = {
-  velopert: {
-    name: '김민준',
-    description: 'Frontend Engineer @ Laftel Inc. 재밌는 것만 골라서 하는 개발자'
+  euna: {
+    name: '고은아',
+    description: '경기대학생'
   },
   gildong: {
     name: '홍길동',
-    description: '전래동화의 주인공'
+    description: '고은아의 친구'
   }
 };
 
