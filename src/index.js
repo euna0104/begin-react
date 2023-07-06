@@ -8,14 +8,17 @@ import { Provider } from 'react-redux';
 import rootReducer from './modules';
 import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger));
 //여러개의 미들웨어 적용
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
