@@ -80,7 +80,7 @@ function App() {
   }, [username, email, onReset]);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
-
+  // 컴포넌트는 일종의 UI 조각. 쉽게 재사용 가능. 하나의 컴포넌트를 App.js에 여러번 사용 가능.
   return (
     <UserDispatch.Provider value={dispatch}>
       <CreateUser 
