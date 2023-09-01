@@ -1,0 +1,64 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import CommonTable from '.././Component/CommonTable';
+import CommonTableColumn from '.././Component/CommonTableColumn';
+import CommonTableRow from '.././Component/CommonTableRow';
+
+const NoticeList = () => {
+  const [dataList, setDataList] = useState([]);
+  const accessToken = sessionStorage.getItem('accessToken');
+  const navigate = useNavigate();
+  async function fetchNoticeBoards() {
+    try {
+      const response = await axios.get('/api/noticeboards?page=1&count=3', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      console.log('데이터 가져오기 성공:', response.data);
+
+      // 가져온 데이터를 반환
+      return response.data;
+    } catch (error) {
+      // 오류 발생 시 처리할 부분
+      console.error('데이터 가져오기 실패:', error);
+
+      // 오류 상황
+      throw error;
+    }
+  }
+  fetchNoticeBoards()
+    .then((data) => {
+      console.log('가져온 데이터:', data);
+    })
+    .catch((error) => {
+      console.error('데이터 가져오기 오류:', error);
+    });
+  return (
+    <>
+      <CommonTable headersName={['글번호', '제목', '등록일', '조회수']}>
+        {dataList ? dataList.map((dataList, index) => (
+          <CommonTableRow key={index}>
+            <CommonTableColumn>{dataList.no}</CommonTableColumn>
+            <CommonTableColumn>
+              <span
+                onClick={() => {
+                  navigate(`/api/noticeboards/${dataList.no}`);
+                }}
+                style={{ textDecoration: 'underline', cursor: 'pointer' }}
+              >
+                {dataList.title}
+              </span>
+            </CommonTableColumn>
+            <CommonTableColumn>{dataList.createData}</CommonTableColumn>
+            <CommonTableColumn>{dataList.readCount}</CommonTableColumn>
+          </CommonTableRow>
+        )) : ''}
+      </CommonTable>
+    </>
+  )
+};
+
+export default NoticeList;
