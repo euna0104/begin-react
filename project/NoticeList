@@ -9,11 +9,16 @@ const NoticeList = () => {
   const [dataList, setDataList] = useState([]);
   const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
+
   async function fetchNoticeBoards() {
     try {
-      const response = await axios.get('/api/noticeboards?page=1&count=3', {
+      const response = await axios.get('/api/noticeboards', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          page: 1,
+          count: 3,
         },
       });
 
@@ -29,13 +34,19 @@ const NoticeList = () => {
       throw error;
     }
   }
-  fetchNoticeBoards()
-    .then((data) => {
-      console.log('가져온 데이터:', data);
-    })
-    .catch((error) => {
-      console.error('데이터 가져오기 오류:', error);
-    });
+
+  useEffect(() => {
+    fetchNoticeBoards()
+      .then((data) => {
+        // 데이터를 가져왔을 때 수행할 작업을 이곳에 추가하세요.
+        setDataList(data); // 가져온 데이터를 상태로 설정
+      })
+      .catch((error) => {
+        // 오류 발생 시 수행할 작업을 이곳에 추가하세요.
+        console.error('데이터 가져오기 오류:', error);
+      });
+  }, []); // useEffect를 사용하여 컴포넌트가 처음 렌더링될 때만 데이터를 불러오도록 설정
+
   return (
     <>
       <CommonTable headersName={['글번호', '제목', '등록일', '조회수']}>
