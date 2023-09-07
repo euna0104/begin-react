@@ -2,66 +2,88 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Notice.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import Header from '.././Header';
 
 const NoticeView = ({ location }) => {
-  const [ data, setData ] = useState();
+  const [ notice, setNotice ] = useState();
   const navigate = useNavigate();
-  const { no } = useParams();
+  const { id } = useParams();
   const accessToken = sessionStorage.getItem('accessToken');
 
   useEffect(() => {
-      fetchNoticeData(no);
-    }, [no]);
+      getNoticeData(id);
+    }, [id]);
 
-  const fetchNoticeData = async (noticeBoardId) => {
+  const getNoticeData = async (noticeBoardId) => {
       try {
         const response = await axios.get(`/api/noticeboards/${noticeBoardId}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setData(response.data);
+        setNotice(response.data);
       } catch (error) {
         console.error('게시물을 불러오지 못했습니다.');
       }
     }
 
+  const deleteNotice = async (noticeBoardId) => {
+    const confirmed = window.confirm(
+      '정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구할 수 없습니다.'
+    );
+
+    if (confirmed) {
+      try {
+        const response = await axios.delete(`/api/admins/noticeboards/${noticeBoardId}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log('글 삭제 성공:', response.data);
+        navigate('/api/noticeboards');
+        alert('글이 삭제되었습니다.');
+      } catch (error) {
+        console.error('글 삭제 오류:', error);
+        alert('글 삭제가 실패했습니다.');
+      }
+    }
+  };
+
   return (
     <>
+      <Header />
+      <br />
       <h2 align="center">게시글 상세정보</h2>
 
       <div className="post-view-wrapper">
         {
-          data ? (
+          notice ? (
             <>
               <div className="post-view-row">
                 <label>게시글 번호</label>
-                <label>{ data.id }</label>
+                <label>{ notice.id }</label>
               </div>
               <div className="post-view-row">
                 <label>제목</label>
-                <label>{  }</label>
+                <label>{ notice.title }</label>
               </div>
               <div className="post-view-row">
                 <label>작성일</label>
-                <label>{  }</label>
+                <label>{ notice.createDate }</label>
               </div>
               <div className="post-view-row">
                 <label>조회수</label>
-                <label>{ data.views }</label>
+                <label>{ notice.views }</label>
               </div>
               <div className="post-view-row">
                 <label>내용</label>
-                <div>
-                  {
-
-                  }
-                </div>
+                <label> { notice.content } </label>
               </div>
             </>
-          ) : '해당 게시글을 찾을 수 없습니다.'
+          ) : '게시물을 불러오는 중입니다...'
         }
-        <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>
+        <button className="post-view-go-list-btn" onClick={() => navigate('/api/noticeboards')}>목록으로 돌아가기</button>&nbsp;
+        <button className="post-view-go-list-btn" onClick={() => deleteNotice(notice.id)}>&nbsp;삭제</button>
       </div>
     </>
   )
