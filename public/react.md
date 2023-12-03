@@ -52,3 +52,19 @@ function Wrapper({ children }) {
     )
 }
 ```
+
+### 06. 조건부 렌더링
+1. 조건브 렌더링이란, 특정 조건에 따라 다른 결과물을 렌더링 하는 것을 의미한다.
+```
+<Hello name="react" color="red" isSpecial={true}/> // App.js
+```
+```agsl
+ <div style={{ color }}>
+      { isSpecial ? <b>*</b> : null }
+      안녕하세요 {name}
+ </div> // Hello.js
+```
+3. 컴포넌트의 props 값을 설정하게 될 때 만약 props 이름만 작성하고 값 설정을 생략한다면, 이를 ```true``` 로 설정한 것으로 간주한다.
+```agsl
+<Hello name="react"  color="red" isSpecial /> // App.js
+```
