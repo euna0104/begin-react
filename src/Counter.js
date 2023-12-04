@@ -1,34 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Counter extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            counter: 0,
-            fixed: 1
-        };
-    }
+function Counter() {
+    const [number, setNumber] = useState(5); // 상태의 기본값은 0
 
-    handleIncrease = () => { //메소드 선언
-        this.setState({
-            counter: this.state.counter + 1
-        });
-    };
-    handleDecrease = () =>{
-        this.setState({
-            counter: this.state.counter - 1
-        });
+    const onIncrease = () => {
+        setNumber(prevNumber => prevNumber + 1); // prevNumber는 useState 함수를 개발한 개발자가 정한거임.
     }
-    render() {
-        return (
-            <div>
-                <h1>{this.state.counter}</h1>
-                <button onClick={this.handleIncrease}>+1</button>
-                <button onClick={this.handleDecrease}>-1</button>
-                <p>고정된 값: {this.state.fixed}</p>
-            </div>
-        );
+    const onDecrease = () => {
+        setNumber(prevNumber => prevNumber - 1);
     }
+    return (
+        <div>
+            <h1>{number}</h1>
+            <button onClick={onIncrease}>+1</button>
+            <button onClick={onDecrease}>-1</button>
+        </div>
+    )
 }
 
 export default Counter;

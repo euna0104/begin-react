@@ -68,3 +68,9 @@ function Wrapper({ children }) {
 ```agsl
 <Hello name="react"  color="red" isSpecial /> // App.js
 ```
+
+### 07. useState 를 통해 컴포넌트에서 바뀌는 값 관리하기
+1. 캄포넌트에서 보여줘야 하는 내용이 사용자 인터렉션에 따라 바뀌어야 할 때 어떻게 구현할 수 있는지에 대해 알아보겠다.
+2. 리액트 16.8에서 Hooks라는 기능이 도입되면서 함수형 컴포넌트에서도 상태를 관리할 수 있게 되었다.
+3. useState 함수는 리액트의 Hooks 중 하나다.
+4. 컴포넌트에서 동적인 값을 상태(state)라고 부른다.
