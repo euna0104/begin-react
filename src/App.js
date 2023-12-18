@@ -51,33 +51,33 @@ function App() {
       username,
       email
     };
-    setUsers(users.concat(user));
+    setUsers(users => users.concat(user));
 
     setInputs({
       username: '',
       email: ''
     });
     nextId.current += 1
-  }, [users, username, email]);
+  }, [username, email]);
 
   const onRemove = useCallback(
     id => {
     // user.id 가 파라미터로 '일치하지 않는 원소만' 추출해서 새로운 배열을 만든다.
     // =user.id 가 id 인 것을 제거한다.
-      setUsers(users.filter(user => user.id !== id));
+      setUsers(users => users.filter(user => user.id !== id));
     },
-    [users]
+    []
   );
 
   const onToggle = useCallback(
     id => {
       setUsers(
-        users.map(user =>
+        users => users.map(user =>
           user.id === id ? {...user, active: !user.active } : user
         )
       );
     },
-    [users]
+    []
   );
   const count = useMemo(() => countActiveUsers(users), [users]);
   return (
