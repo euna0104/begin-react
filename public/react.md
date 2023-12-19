@@ -162,3 +162,21 @@ DOM 의 ```value``` 값, 즉 ```e.target.value``` 를 조회하면 현재 input 
 함수들에서 현재 ```useState```로 관리하는 ```users```를 참조하지 않게 하는 것이다. 즉 ```함수형 업데이트```사용
 5. 함수형 업데이트를 하게 되면 ```setUsers```에 등록하는 콜백함수의 파라미터에서 최신 ```users```를 참조할 수 있기 때문에 
 ```deps```에 ```users```를 넣지 않아도 된다.
+
+### 20. useReducer를 사용하여 상태 업데이트 로직 분리하기
+1. useReducer를 사용하면 컴포넌트의 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있다.
+2. 상태 업데이트 로직을 컴포넌트 바깥에 작성할 수도 있고, 심지어 다른 파일에 작성 후 불러와서 사용할 수도 있다.
+3. reducer는 현재 상태와 액션 객체를 파라미터로 받아와서 새로운 상태를 반환해주는 함수다.
+```agsl
+function reducer(state, action) {
+  return nextState;
+}
+
+```
+4. ```useReducer```의 사용법
+```agsl
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+여기서 ```state```는 우리가 앞으로 컴포넌트에서 사용할 수 있는 상태를 가르키게 되고,
+```dispatch```는 액션을 발생시키는 함수다.
+5. ```useReducer```에 넣는 첫번째 파라미터는 reducer 함수이고, 두번째 파라미터는 초기상태다.
