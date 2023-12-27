@@ -1,5 +1,5 @@
 // ```useReducer```를 사용하여 상태를 관리할 것
-import react, { useReducer, createContext } from 'react';
+import react, { useReducer, createContext, useContext } from 'react';
 
 const initialTodos = [
   {
@@ -51,4 +51,12 @@ export function TodoProvider({ children }) {
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   )
+}
+
+export function useTodoState() {
+  return useContext(TodoStateContext);
+}
+
+export function useTodoDispatch() {
+  return useContext(TodoDispatchContext);
 }
