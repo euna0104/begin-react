@@ -1,5 +1,5 @@
 // ```useReducer```를 사용하여 상태를 관리할 것
-import react, { useReducer, createContext, useContext } from 'react';
+import react, { useReducer, createContext, useContext, useRef } from 'react';
 
 const initialTodos = [
   {
@@ -41,16 +41,21 @@ function todoReducer(state, action) {
 
 const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
+const TodoNextIdContext = createContext();
 
 export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
+  const nextId = useRef(5);
+
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
-        {children}
+        <TodoNextIdContext.provider value={nextId}>
+          {children}
+        </TodoNextIdContext.Provider>
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
-  )
+  );
 }
 
 export function useTodoState() {

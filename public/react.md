@@ -245,3 +245,5 @@ const nextState = produce(state, draft => {
 props 를 전달해줘야 하는 컴포넌트가 너무 깊숙히 있을 수도 있다.
 2. 하나의 Context 를 만들어서 ```state``` 와 ```dispatch```를 함께 넣어주는 대신에, 
 두개의 Context 를 만들어서 따로 따로 넣어줄 것이다. 이렇게 하면 ```dispatch``` 만 필요한 컴포넌트에서 불필요한 렌더링을 방지할 수 있다.
+3. ```nextId``` 가 의미하는 값은 새로운 항목을 추가할 때 사용할 고유 ID다. 이 값은 ```useRef``` 를 사용하여 관리한다.
+4. ```nextId``` 값을 위한 Context 를 만들 때에도 마찬가지로 ```useTodoNextId``` 라는 커스텀 Hook을 따로 만든다.
