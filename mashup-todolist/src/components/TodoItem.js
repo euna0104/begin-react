@@ -11,6 +11,7 @@ const Remove = styled.div`
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
+  opacity: 0; // 토글에서 필수
   &:hover {
     color: #ff6b6b;
   }
