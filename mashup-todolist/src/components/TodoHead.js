@@ -30,10 +30,19 @@ const TodoHeadBlock = styled.div`
 function TodoHead() {
   const todos = useTodoState();
   const undoneTasks = todos.filter(todo => !todo.done);
+
+  const today = new Date(); // Date 함수 사용
+  const dateString = today.toLocaleDateString('ko-KR', {
+    year: 'numeric', // 연
+    month: 'long', // 월
+    day: 'numeric' // 일
+  });
+  const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
+
   return (
     <TodoHeadBlock>
-      <h1>2023년 12월 28일</h1>
-      <div className="day"> 수요일</div>
+      <h1>{dateString}</h1>
+      <div className="day">{dayName}</div>
       <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
     </TodoHeadBlock>
   );
